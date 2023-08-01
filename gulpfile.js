@@ -8,6 +8,7 @@ const Transform = require("./src/lib/transform");
 const sanitizeSetting = require("./src/lib/sanitizeSetting");
 const Utility = require("./src/lib/utils");
 const settings = require(basePath + "/config");
+const watch = require("gulp-watch");
 
 /**
  * This task is transpile code. It insert parser to the code.
@@ -45,19 +46,23 @@ gulp.task("create-flatSetting", (done) => {
   done();
 });
 
-gulp.task("watch-config", () => {
-  gulp.watch(basePath + "/config.js", { events: "all", ignoreInitial: false }, () => {
-    const error = sanitizeSetting(settings);
-    if (error.status) return;
+const watchConfig = (done) => {
+  delete require.cache[require.resolve(basePath + "/config")];
+  const settings = require(basePath + "/config");
+  const error = sanitizeSetting(settings);
+  if (error.status) return;
+  const flatSetting = Utility.generateSetting(settings, "development");
 
-    const flatSetting = Utility.generateSetting(settings, "development");
-    console.log(flatSetting);
-    fs.writeFile(basePath + "/js/widgetSetting.js", `module.exports=${JSON.stringify(flatSetting)}`, (err) => {
-      if (err) console.log(err);
-    });
-  });
+  const settingContent = `module.exports=${JSON.stringify(flatSetting)}`;
+  fs.writeFileSync(basePath + "/js/widgetSetting.js", settingContent);
+  done();
+};
+
+gulp.task("process-config", watchConfig);
+gulp.task("watch-config", () => {
+  watch(basePath + "/config.js", gulp.series("process-config"));
 });
 
-gulp.task("dev", gulp.parallel("watch-config"));
+gulp.task("dev", gulp.series("process-config", "watch-config"));
 gulp.task("build", gulp.series("create-flatSetting"));
 gulp.task("default", gulp.series("parsed-code", gulp.parallel("create-json", "create-editor-json")));

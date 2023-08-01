@@ -59,7 +59,7 @@ module.exports = {
       icon: "https://soppiya.com/icons/text.png",
       type: "text",
       parseType: "string",
-      value: "I am heading",
+      value: "I am heading ana ab",
       fallback: [""],
     },
   },
