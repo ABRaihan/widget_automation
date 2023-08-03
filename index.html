@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/gh/ConceptXLtd/public@main/site/data_cdn.js"></script>
+  </head>
+  <body>
+    <section>
+  <style>
+    /* write you style here */
+  </style>
+  <div>
+    <!-- write your html code here -->
+    <h1>Hello</h1>
+    <h1>Hello</h1>
+  </div>
+  <script type="module">
+    import Transform from "lib/transform";
+    const widgetSettings = require("./src/widgets/home/items/alpha/js/widgetSetting")
+
+    function main() {
+      const settings = Transform.toValue(widgetSettings);
+      document.write(JSON.stringify(settings), "</br>");
+    }
+    main();
+  </script>
+</section>
+  </body>
+</html>

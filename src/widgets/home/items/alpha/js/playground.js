@@ -1,6 +1,6 @@
 const path = require("path")
 const expr = [
-  { __and: [{ isViewAllBtn: true }, { isViewBtn: false }, { __or: [{ isValue: true }, { isName: "yes" }] }] },
+  { __and: [{ isViewAllBtn: true }, { isViewBtn: false }, { __or: [{ isValue: true }, { isName: "yes" }] }, {__ne: {isShow: false}}] },
 ];
 
 function playground(arr, operator) {
@@ -11,9 +11,13 @@ function playground(arr, operator) {
       str += str === "" ? `${playground(element.__and, "&&")}` : ` && (${playground(element.__and, "&&")})`;
     if (key === "__or")
       str += str === "" ? `(${playground(element.__or, "||")})` : ` && (${playground(element.__or, "||")})`;
+    if(key === "__ne")
+      str += 
 
-    if (!Array.isArray(element[key]))
+    if (!Array.isArray(element[key])){
       str += str === "" ? `${key} === ${element[key]}` : ` ${operator} ${key} === ${element[key]}`;
+    }
+      
   });
   return str;
 }

@@ -1,4 +1,3 @@
-const sanitizeSetting = require("./sanitizeSetting");
 const Utility = require("./utils");
 
 /**
@@ -22,38 +21,15 @@ class Parsed {
 
   /**
    * @private
-   * This function find replaceable code from widget code.
-   * Then return it for replace from code.
-   * @param {string} key - setting key name
-   * @returns {string}
+   * This method helps to make parser.
+   * It's make different parser depend of value type.
+   * @param {string} key - setting property name
+   * @returns {string} parser string like <# $ #>
    */
-  #findReplaceString(key) {
-    try {
-      if (typeof key !== "string") throw new Error("findReplaceString key must be string");
-
-      const keyLength = key.length;
-      /* @__find string using setting key pair__@ */
-      const firstIndex = this.#codes.indexOf(key + ":") + keyLength + 1;
-      const lastIndex = this.#codes.lastIndexOf(key + '}') + keyLength + 1;
-
-      return this.#codes.slice(firstIndex, lastIndex + 1);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  /**
-   * @private
-   * @param {*} key
-   * @param {*} isLastIndex
-   * @returns
-   */
-  #generateParserString(key, isLastIndex) {
+  #generateParserString(key) {
     try {
       /* @__check arguments type__@ */
-
-      if (typeof key !== "string" && typeof isLastIndex !== "boolean")
-        throw new Error("makeParserString key & lastIndex argument must be string & boolean");
+      if (typeof key !== "string") throw new Error("makeParserString key argument must be string");
 
       let parser = "";
       /* @__parsed for number & boolean type__@ */
@@ -62,8 +38,8 @@ class Parsed {
       /* @__parsed for string type__@ */
       this.#settings[key].parseType === "string" && (parser = `"<# ${key} #>"`);
 
+      /* @__make parser with fallback value */
       parser += this.#generateDefaultValues(key);
-      // parser += isLastIndex ? "}" : ",";
 
       return parser;
     } catch (err) {
@@ -73,8 +49,10 @@ class Parsed {
 
   /**
    * @private
-   * @param {*} key
-   * @returns
+   * This method helps to build fallback value.
+   * When parser value will not provide then fallback will work.
+   * @param {string} key - setting property name
+   * @returns {string} fallback value expression like "|| #fff"
    */
   #generateDefaultValues(key) {
     try {
@@ -99,19 +77,28 @@ class Parsed {
     }
   }
 
+  /**
+   * @public
+   * This method transpile the source code.
+   * @returns {string} transpiled code with parser
+   */
   codeTranspile() {
     try {
+      /* @__generate flat setting__@ */
       this.#settings = Utility.generateSetting(this.#settings, "development");
+
       const settingKeys = Object.keys(this.#settings),
         keysLength = settingKeys.length - 1;
 
+      /* @__set parser for every setting property__@ */
       settingKeys.forEach((key, index) => {
-        // const replaceString = this.#findReplaceString(key);
         const replaceString = `"soppiya${key}"`;
         const parserString = this.#generateParserString(key, keysLength === index);
         this.#codes = this.#codes.replace(replaceString, parserString);
       });
-      // this.#codes = this.#codes.replace(`type="module"`, "");
+
+      /* @__replace type module cause after build there is no esm__@ */
+      this.#codes = this.#codes.replace(`type="module"`, "");
       return this.#codes;
     } catch (err) {
       console.log(err);

@@ -1,21 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Build Widget</h1>
-    <script type="module">
-      import Transform from "lib/transform";
-      import widgetSettings from "./js/widgetSetting";
+<section>
+  <style>
+    /* write you style here */
+  </style>
+  <div>
+    <!-- write your html code here -->
+    <h1>Hello</h1>
+    <h1>Hello</h1>
+  </div>
+  <script type="module">
+    import Transform from "lib/transform";
+    import widgetSettings from "./js/widgetSetting";
 
-      function main() {
-        const settings = Transform.toValue(widgetSettings);
-        document.write(JSON.stringify(settings), "</br>");
-      }
-      main();
-    </script>
-  </body>
-</html>
+    function main() {
+      const settings = Transform.toValue(widgetSettings);
+      document.write(JSON.stringify(settings), "</br>");
+    }
+    main();
+  </script>
+</section>

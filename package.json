@@ -6,15 +6,17 @@
   "license": "MIT",
   "baseUrl": "./src",
   "scripts": {
-    "dev": "cross-env APP_MODE=development node script.js",
+    "dev": "cross-env APP_MODE=development node main.js",
     "watch": "gulp dev",
-    "build": "cross-env APP_MODE=production node script.js"
+    "build": "cross-env APP_MODE=production node main.js"
   },
   "devDependencies": {
     "buffer": "^5.5.0||^6.0.0",
+    "concurrently": "^8.2.0",
     "cross-env": "^7.0.3",
     "crypto-browserify": "^3.12.0",
     "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
     "events": "^3.1.0",
     "gulp": "^4.0.2",
     "gulp-watch": "^5.0.1",

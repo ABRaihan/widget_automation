@@ -9,7 +9,7 @@ module.exports = {
       fallback: ["var(--backgroundColor)", "#fff", ""],
       activation: [
         {
-          __and: [{ isViewAllBtn: true }, { isViewBtn: false }, { __or: [{ isValue: true }, { isName: "yes" }] }],
+          __and: [{ isViewAllBtn: true }, { isViewBtn: false }, { __or: [{ isValue: true }, { isName: "yes" }] }, {__ne: {isShow: false}}],
         },
       ],
     },
@@ -59,7 +59,7 @@ module.exports = {
       icon: "https://soppiya.com/icons/text.png",
       type: "text",
       parseType: "string",
-      value: "I am heading ana ab",
+      value: "I am heading gibon",
       fallback: [""],
     },
   },
