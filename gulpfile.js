@@ -18,6 +18,11 @@ const watch = require("gulp-watch");
  */
 
 gulp.task("create-widget-folder", (done) => {
+  if (fs.existsSync(entryFile)) {
+    settings = require(entryFile + "/config");
+    done();
+    return;
+  }
   fs.mkdirSync(entryFile, { recursive: true });
   fs.mkdirSync(entryFile + "/js", { recursive: true });
   const htmlContent = `<section>
@@ -72,7 +77,6 @@ gulp.task("create-editor-json", (done) => {
 // gulp.task("create-editor-json", task.createEditorJSON);
 
 gulp.task("create-flatSetting", (done) => {
-  console.log(settings);
   const error = sanitizeSetting(settings);
   if (error.status) return;
   const flatSetting = Utility.generateSetting(settings, mode);
@@ -132,8 +136,7 @@ gulp.task(
     "create-flatSetting",
     "process-render",
     "process-config",
-    "watch-render",
-    "watch-config"
+    gulp.parallel("watch-render", "watch-config")
   )
 );
 
