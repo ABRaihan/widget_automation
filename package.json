@@ -7,7 +7,6 @@
   "baseUrl": "./src",
   "scripts": {
     "dev": "cross-env APP_MODE=development node main.js",
-    "watch": "gulp dev",
     "build": "cross-env APP_MODE=production node main.js"
   },
   "devDependencies": {
