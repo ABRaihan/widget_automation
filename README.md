@@ -11,21 +11,18 @@ Widget refers to an application component that can be embedded within a larger a
 ## How to build soppiya widget! 👋
 
 ### Get start with:
+
 - [Folder structure](#folder-structure)
 - [Folder boilerplate](#folder-boilerplate)
 - [Code boilerplate](#code-boilerplate)
 - [Make config file](#make-config-file)
+- [How to start build an widget](#how-to-start-build-an-widget)
 
 <!-- #__folder structure__# -->
 
 ### Folder structure:
 
 - [src/](.\widgets\src)
-  - [lib/](.\widgets\src\lib)
-    - [parsed.js](.\widgets\src\lib\parsed.js)
-    - [sanitizeSetting.js](.\widgets\src\lib\sanitizeSetting.js)
-    - [transform.js](.\widgets\src\lib\transform.js)
-    - [utils.js](.\widgets\src\lib\utils.js)
   - [widgets/](.\widgets\src\widgets)
     - [Blog/](.\widgets\src\widgets\Blog)
     - [Blogs/](.\widgets\src\widgets\Blogs)
@@ -77,16 +74,15 @@ index.html
 
 <section>
   <style>
-    /* write you styles here */
+    /* write you style here */
   </style>
   <div>
     <!-- write your html code here -->
+    <h1>Build Your Awesome Widget</h1>
   </div>
   <script type="module">
     import Transform from "lib/transform";
-    /* @__this js file will create dynamically in your js folder__@ */
     import widgetSettings from "./js/widgetSetting";
-    /* @__here import your all js modules */
 
     function main() {
       const settings = Transform.toValue(widgetSettings);
@@ -146,8 +142,8 @@ types of widget customization
     },
 }
 ```
-> **_Describe:_** This is the example of how to make widget setting.
 
+> **_Describe:_** This is the example of how to make widget setting.
 
 ```javascript
 /* @__config object look like__@ */
@@ -163,7 +159,12 @@ module.exports = {
       fallback: ["var(--backgroundColor)", "#fff", ""],
       activation: [
         {
-          __and: [{ isViewAllBtn: true }, { isViewBtn: false }, { __or: [{ isValue: true }, { isName: "yes" }] }, {__ne: {isShow: false}}],
+          __and: [
+            { isViewAllBtn: true },
+            { isViewBtn: false },
+            { __or: [{ isValue: true }, { isName: "yes" }] },
+            { __ne: { isShow: false } },
+          ],
         },
       ],
     },
@@ -219,8 +220,34 @@ module.exports = {
   },
 };
 ```
-> **_Describe:_** This is the actual config.js file. Here you can she some root object like general, header. Actually these the section. Like bgColor & bgImage settings is include under general section.
 
+> **_Describe:_** This is the actual config.js file. Here you can she some root object like general, header. Actually these the section. Like bgColor & bgImage settings is include under general section.
 
 ### How to start build an widget:
 
+For build a widget you need to follow a simple step.
+
+- First you just write widget path in .env file. For example you want to create a carousel widget under the home folder. So write:
+
+```env
+SOURCE_DIRECTORY="./src/widgets/home/carousel"
+// you just write "./src/widgets/home/carousel" this.
+```
+
+- Second you just run a command in your terminal
+
+```bash
+yarn dev
+```
+
+> **_Describe:_** This command automatically create all folder structure for you. You just go to folder and write your widget code.
+
+- After complete your widget you just run build command.
+
+```bash
+yarn build
+```
+
+> **_Describe:_** After build command it's automatically build the production file index.html, settings.json and settings.editor.json.
+
+Your widget build is complete as simple as.
