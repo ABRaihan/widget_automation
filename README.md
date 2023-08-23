@@ -1,4 +1,4 @@
-# Soppiya Widget
+# Widgets
 
 Widget refers to an application component that can be embedded within a larger application or website. Widgets are designed to provide specific functionalities or display specific information to users in a compact and visually appealing manner.
 
@@ -6,9 +6,9 @@ Widget refers to an application component that can be embedded within a larger a
 
 ## Authors
 
-- [@soppiya](https://www.soppiya.com)
+A. B. Raihan
 
-## How to build soppiya widget! 👋
+## How to build polished widget! 👋
 
 ### Get start with:
 
@@ -129,7 +129,7 @@ types of widget customization
 {
   bgColor: {
       name: "Background Color",
-      icon: "https://soppiya.com/icons/colorPicker.png",
+      icon: "https://polished.com/icons/colorPicker.png",
       type: "color",
       parseType: "string",
       value: "#fff",
@@ -152,7 +152,7 @@ module.exports = {
   general: {
     bgColor: {
       name: "Background Color",
-      icon: "https://soppiya.com/icons/colorPicker.png",
+      icon: "https://polished.com/icons/colorPicker.png",
       type: "color",
       parseType: "string",
       value: "#fff",
@@ -170,7 +170,7 @@ module.exports = {
     },
     bgImage: {
       name: "Background Image",
-      icon: "https://soppiya.com/icons/image.png",
+      icon: "https://polished.com/icons/image.png",
       type: "image",
       size: [1920, 773],
       parseType: "boolean",
@@ -181,23 +181,23 @@ module.exports = {
   Header: {
     headerAlignment: {
       name: "Heading alignment",
-      icon: "https://soppiya.com/icons/questionMark.png",
+      icon: "https://polished.com/icons/questionMark.png",
       type: "select",
       options: [
         {
           name: "Left",
           value: "left",
-          icon: "https://soppiya.com/icons/alignmentLeft.png",
+          icon: "https://polished.com/icons/alignmentLeft.png",
         },
         {
           name: "Right",
           value: "right",
-          icon: "https://soppiya.com/icons/alignmentCenter.png",
+          icon: "https://polished.com/icons/alignmentCenter.png",
         },
         {
           name: "Center",
           value: "center",
-          icon: "https://soppiya.com/icons/alignmentRight.png",
+          icon: "https://polished.com/icons/alignmentRight.png",
         },
       ],
       parseType: "string",
@@ -205,13 +205,17 @@ module.exports = {
       fallback: ["right"],
       activation: [
         {
-          __and: [{ isViewAllBtn: true }, { isViewBtn: false }, { __or: [{ isValue: true }, { isName: "yes" }] }],
+          __and: [
+            { isViewAllBtn: true },
+            { isViewBtn: false },
+            { __or: [{ isValue: true }, { isName: "yes" }] },
+          ],
         },
       ],
     },
     headingText: {
       name: "Heading text",
-      icon: "https://soppiya.com/icons/text.png",
+      icon: "https://polished.com/icons/text.png",
       type: "text",
       parseType: "string",
       value: "I am heading gibon",

@@ -6,11 +6,11 @@ const fs = require("fs");
 const path = require("path");
 const ejs = require("ejs");
 const Parsed = require("./src/lib/parsed");
+const watch = require("gulp-watch");
 const Transform = require("./src/lib/transform");
 const sanitizeSetting = require("./src/lib/sanitizeSetting");
 const Utility = require("./src/lib/utils");
 let settings;
-const watch = require("gulp-watch");
 
 /**
  * This task is transpile code. It insert parser to the code.
